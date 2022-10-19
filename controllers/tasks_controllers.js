@@ -5,6 +5,7 @@ import { join, dirname } from 'path'
 import { v4 as uuidv4 } from 'uuid'
 import Users from '../Models/User.js'
 import Materials from '../Models/Material.js'
+import { type } from 'os'
 
 const appDir = process.env.PWD;
 const file = join(`${appDir}/db`, "db.json");
@@ -91,9 +92,10 @@ console.log(name,password,email)
 
 export async function createMaterials(req, res) {
     try {
-        const {name} = req.body
+        const { name, type } = req.body
         const newMaterial = await Materials.create({
             name: name,
+            type: type,
         })
         if (newMaterial) res.status(200).json({
             message:"materiel créer"});

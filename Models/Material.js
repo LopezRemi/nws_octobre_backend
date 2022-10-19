@@ -5,6 +5,9 @@ const MaterialSchema = new mongoose.Schema(
         name: {
             type: String,
         },
+        type: {
+            type: String,
+        },
         token:{
             type:String,
         },
