@@ -14,7 +14,7 @@ console.log(name,password,email)
             message:"utilisateur créer"
         });
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 

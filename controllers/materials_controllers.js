@@ -1,3 +1,4 @@
+import res from 'express/lib/response.js';
 import Materials from '../Models/Material.js'
 
 
@@ -9,8 +10,29 @@ export async function createMaterials(req, res) {
             type: type,
         })
         if (newMaterial) res.status(200).json({
-            message:"materiel créer"});
+            message: "materiel créer"
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
+    }
+}
+
+export async function updateMaterials(req, res) {
+    try {
+        const { _id, data } = req.body
+        const material = await Materials.findByIdAndUpdate(_id, data)
+        res.status(200).json({ material: material });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function deleteMaterials(req, res) {
+    const materialId = req.params.id;
+    try {
+        const material = await Materials.findByIdAndDelete(materialId);
+        res.send(material);
+    } catch (error) {
+        console.log(error);
     }
 }
