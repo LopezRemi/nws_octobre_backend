@@ -1,6 +1,5 @@
-import res from 'express/lib/response.js';
+import Loan from '../Models/Loan.js';
 import Materials from '../Models/Material.js'
-
 
 export async function createMaterials(req, res) {
     try {
@@ -31,6 +30,12 @@ export async function deleteMaterials(req, res) {
     const materialId = req.params.id;
     try {
         const material = await Materials.findByIdAndDelete(materialId);
+        const alreadyLoan = await Loan.findOne({alreadyTaken: req.body._id})
+        if (alreadyLoan) {
+            return res.status(200).json({
+                message:"Matériel déja loué rendez le avant de le supprimer !"
+            })
+        }
         res.send(material);
     } catch (error) {
         console.log(error);
