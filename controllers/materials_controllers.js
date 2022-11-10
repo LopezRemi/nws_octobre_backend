@@ -1,6 +1,19 @@
 import Loan from '../Models/Loan.js';
 import Materials from '../Models/Material.js'
 
+
+
+export async function getMaterials(req, res) {
+    
+    try{
+        const materials = await Materials.find()
+        res.status(200).json(materials)
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 export async function createMaterials(req, res) {
     try {
         const { name, type } = req.body
@@ -9,7 +22,7 @@ export async function createMaterials(req, res) {
             type: type,
         })
         if (newMaterial) res.status(200).json({
-            message: "materiel créer"
+            message: "materiel créé"
         });
     } catch (error) {
         console.log(error);
@@ -18,24 +31,27 @@ export async function createMaterials(req, res) {
 
 export async function updateMaterials(req, res) {
     try {
-        const { _id, data } = req.body
-        const material = await Materials.findByIdAndUpdate(_id, data)
-        res.status(200).json({ material: material });
+        const { id, material } = req.body
+        console.log(req.body)
+        const updatedMaterial = await Materials.findOneAndUpdate({_id: id}, material)
+        res.status(200).json({ material: updatedMaterial });
     } catch (error) {
         console.log(error);
     }
 }
 
 export async function deleteMaterials(req, res) {
+    console.log(req)
     const materialId = req.params.id;
+    console.log(materialId)
     try {
-        const material = await Materials.findByIdAndDelete(materialId);
-        const alreadyLoan = await Loan.findOne({alreadyTaken: req.body._id})
+        const alreadyLoan = await Loan.findOne({alreadyTaken: materialId})
         if (alreadyLoan) {
-            return res.status(200).json({
+            return res.status(409).json({
                 message:"Matériel déja loué rendez le avant de le supprimer !"
             })
         }
+        const material = await Materials.findByIdAndDelete(materialId);
         res.send(material);
     } catch (error) {
         console.log(error);

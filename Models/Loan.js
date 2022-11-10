@@ -14,9 +14,6 @@ const LoanSchema = new mongoose.Schema(
         returnDate: {
             type:Date,
         },
-        token:{
-            type:String,
-        },
     },{
         timestamps:true
     })
