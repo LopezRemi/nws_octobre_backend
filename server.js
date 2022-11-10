@@ -31,7 +31,7 @@ app.use('/',indexRoute);
 
 
 // API server listing port 300
-app.listen(3001, function () {
+app.listen(8000, function () {
   console.log('API running');
 });
 export default app;
