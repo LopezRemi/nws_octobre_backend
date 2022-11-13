@@ -1,5 +1,3 @@
-import Loan from '../Models/Loan.js';
-import Loaners from '../Models/Loaners.js';
 import Materials from '../Models/Material.js'
 
 
@@ -43,12 +41,12 @@ export async function updateMaterials(req, res) {
 export async function deleteMaterials(req, res) {
     const materialId = req.params.id;
     try {
-        const alreadyLoan = await Loaners.findOne({alreadyTaken: materialId})
-        if (alreadyLoan) {
-            return res.status(409).json({
-                message:"Matériel déja loué rendez le avant de le supprimer !"
-            })
-        }
+        // const alreadyLoan = await Loaner.findOne({alreadyTaken: materialId})
+        // if (alreadyLoan) {
+        //     return res.status(409).json({
+        //         message:"Matériel déja loué rendez le avant de le supprimer !"
+        //     })
+        // }
         const material = await Materials.findByIdAndDelete(materialId);
         res.send(material);
     } catch (error) {

@@ -1,7 +1,14 @@
-import Loans from '../Models/Loan.js'
-import Loaners from '../Models/Loaners.js'
+import Loaner from '../Models/Loaner.js'
 import date from 'date-and-time'
 import Materials from '../Models/Material.js'
+import nodemailer from "nodemailer"
+let transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "testreminws@hotmail.com",
+      pass: "Azerty123",
+    },
+  });
 
 
 export async function createLoaners(req, res) {
@@ -17,13 +24,22 @@ const material = await Materials.findById(loanedMaterial)
             material.save()
         }
         const datenow = new Date
-        const newLoaners = await Loaners.create({
+        const newLoaners = await Loaner.create({
             name: name,
             email: email,
             loanedMaterial : loanedMaterial,
             returnDate: date.addDays(datenow, 15),
         })
         if (newLoaners) {
+            var message = {
+                from: "testreminws@hotmail.com",
+                to: newLoaners.email,
+                subject: "Un emprunt a été réalisé",
+                text: "Bonjour , je vous informe qu'un emprunt a bien été réalisé au sein de la NWS",
+                html: "<p>Bonjour , je vous informe qu'un emprunt a bien été réalisé au sein de la NWS</p>",
+              };
+            //Temporary desactivated to not spam my mailbox
+            transporter.sendMail(message);
             res.status(200).json({
             message:"Location créé",loanersData : newLoaners
         });}
@@ -34,7 +50,7 @@ const material = await Materials.findById(loanedMaterial)
 
 export async function getLoanerByMaterial (req ,res) {
     try {
-        const loaner = await Loaners.find({
+        const loaner = await Loaner.find({
             loanedMaterial:req.body.materialId
         })
         if(loaner) {
@@ -43,8 +59,8 @@ export async function getLoanerByMaterial (req ,res) {
             })
         }
     }
-    catch {
-
+    catch(error){
+        console.log(error);
     }
 }
 
@@ -52,10 +68,19 @@ export async function getLoanerByMaterial (req ,res) {
 export async function deleteLoaner(req, res) {
     const LoanerId = req.params.id;
     try {
-        const Loaner = await Loaners.findByIdAndDelete(LoanerId);
+        const Loaner = await Loaner.findByIdAndDelete(LoanerId);
         res.send(Loaner);
     } catch (error) {
         console.log(error);
     }
 }
 
+export async function getByMaterial(req,res){
+    try{
+        const Loaner = await Loaner.findOne({loanedMaterial:req.body.id})
+        res.json({data:Loaner})
+    }
+    catch(error){
+        console.log(error);
+    }
+}
