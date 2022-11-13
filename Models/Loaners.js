@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Materials from './Material.js';
 
 const LoanerSchema = new mongoose.Schema(
     {
@@ -12,6 +13,13 @@ const LoanerSchema = new mongoose.Schema(
         },
         token:{
             type:String,
+        },
+        loanedMaterial:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:Materials,
+        },
+        returnDate: {
+            type:Date,
         },
     },{
         timestamps:true
