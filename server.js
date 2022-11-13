@@ -1,5 +1,5 @@
 import express from 'express';
-import userRoute from './routes/Users_routes.js'
+import LoanersRoute from './routes/Loaners_routes.js'
 import materialRoute from './routes/Materials_routes.js'
 import indexRoute from './routes/index.js'
 import loanRoute from './routes/Loans_route.js'
@@ -24,9 +24,9 @@ const app = express();
 //Listing a particular task//Update a task
 app.use(cors());
 app.use(express.json());
-app.use('/user', userRoute);
+app.use('/loaner', LoanersRoute);
 app.use('/materials', materialRoute);
-app.use('/tasks', loanRoute);
+app.use('/loans', loanRoute);
 app.use('/',indexRoute);
 
 

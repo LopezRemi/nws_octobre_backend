@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const UserSchema = new mongoose.Schema(
+const LoanerSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -10,10 +10,6 @@ const UserSchema = new mongoose.Schema(
             type: String,
             // required: true
         },
-        password:{
-            type: String,
-            // required: [true,'Veuillez tapez un mot de passe']
-        },
         token:{
             type:String,
         },
@@ -21,5 +17,5 @@ const UserSchema = new mongoose.Schema(
         timestamps:true
     })
     
-    const Users = mongoose.model("users",UserSchema);
-    export default Users;
+    const Loaners = mongoose.model("Loaners",LoanerSchema);
+    export default Loaners;

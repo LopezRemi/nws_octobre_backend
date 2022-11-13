@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "mocha || true ",
+    "test": "mocha",
     "start": "nodemon server.js"
   },
   "author": "",

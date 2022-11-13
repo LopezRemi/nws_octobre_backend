@@ -8,8 +8,9 @@ const MaterialSchema = new mongoose.Schema(
         type: {
             type: String,
         },
-        LoanedId: {
-            type: Object
+        isLoaned: {
+            type: Boolean,
+            default: false
         },
         token:{
             type:String,

@@ -3,11 +3,9 @@ import date from 'date-and-time'
 
 export async function createLoans(req, res) {
     try {
-        const { userLoaner, loanWhen, materialLoan } = req.body
+        const { loanWhen, } = req.body
         const datenow = new Date();
         const newLoan = await Loans.create({
-            userLoaner: userLoaner,
-            materialLoan: materialLoan,
             loanWhen: loanWhen,
             returnDate: date.addDays(datenow, 15),
         })
