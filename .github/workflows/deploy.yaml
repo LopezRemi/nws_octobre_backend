@@ -15,5 +15,5 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - run: ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST }} "cd nws_octobre_backend git pull"
+      - run: ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST }} "cd nws_octobre_backend && git pull"
       - run: ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST }} "docker compose up -d"
