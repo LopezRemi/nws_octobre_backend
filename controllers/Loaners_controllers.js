@@ -34,7 +34,7 @@ const material = await Materials.findById(loanedMaterial)
             var message = {
                 from: "testreminws@hotmail.com",
                 to: newLoaners.email,
-                subject: "Un emprunt a été réalisé",
+                subject: "Un emprunt a été réalisé mec",
                 text: "Bonjour , je vous informe qu'un emprunt a bien été réalisé au sein de la NWS uwu uwu",
                 html: "<p>Bonjour , je vous informe qu'un emprunt a bien été réalisé au sein de la NWS</p>",
             };
