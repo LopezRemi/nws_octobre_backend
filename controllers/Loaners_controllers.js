@@ -35,9 +35,9 @@ const material = await Materials.findById(loanedMaterial)
                 from: "testreminws@hotmail.com",
                 to: newLoaners.email,
                 subject: "Un emprunt a été réalisé",
-                text: "Bonjour , je vous informe qu'un emprunt a bien été réalisé au sein de la NWS",
+                text: "Bonjour , je vous informe qu'un emprunt a bien été réalisé au sein de la NWS uwu",
                 html: "<p>Bonjour , je vous informe qu'un emprunt a bien été réalisé au sein de la NWS</p>",
-              };
+            };
             //Temporary desactivated to not spam my mailbox
             transporter.sendMail(message);
             res.status(200).json({
